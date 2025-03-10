@@ -19,20 +19,17 @@ namespace GradeBook.GradeBooks
             if (Students.Count < 5)
                 throw new InvalidOperationException("Too few students!");
 
-            int studentPlace = 1;
-            foreach (var student in Students)
-            {
-                if (student.AverageGrade > averageGrade)
-                    studentPlace++;
-            }
+            var sortedStudents = Students.OrderByDescending(s => s.AverageGrade).ToList();
+            int studentPlace = sortedStudents.FindIndex(s => s.AverageGrade == averageGrade) + 1;
+            double rankPercentage = (double)studentPlace / Students.Count;
 
-            if (studentPlace / Students.Count >= 0.2)
+            if (rankPercentage <= 0.2)
                 return 'A';
-            else if (studentPlace / Students.Count <= 0.2 && studentPlace / Students.Count > 0.4)
+            else if (rankPercentage <= 0.4)
                 return 'B';
-            else if (studentPlace / Students.Count <= 0.4 && studentPlace / Students.Count > 0.6)
+            else if (rankPercentage <= 0.6)
                 return 'C';
-            else if (studentPlace / Students.Count <= 0.6 && studentPlace / Students.Count > 0.8)
+            else if (rankPercentage <= 0.8)
                 return 'D';
             else
                 return 'F';
