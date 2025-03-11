@@ -35,7 +35,7 @@ namespace GradeBook.UserInterfaces
         
         public static BaseGradeBook CreateCommand(string command)
         {
-            var parts = command.Split(' ');
+            var parts = command.Split(' '); 
             if (parts.Length != 3)
             {
                 Console.WriteLine("Command not valid, Create requires a name and type of gradebook.");
