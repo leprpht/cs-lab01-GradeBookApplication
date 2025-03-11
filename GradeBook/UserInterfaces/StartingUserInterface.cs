@@ -1,5 +1,7 @@
 ﻿using GradeBook.GradeBooks;
+using Newtonsoft.Json;
 using System;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GradeBook.UserInterfaces
 {
@@ -30,19 +32,29 @@ namespace GradeBook.UserInterfaces
             else
                 Console.WriteLine("{0} was not recognized, please try again.", command);
         }
-
-        public static void CreateCommand(string command)
+        
+        public static BaseGradeBook CreateCommand(string command)
         {
             var parts = command.Split(' ');
-            if (parts.Length != 2)
+            if (parts.Length != 3)
             {
-                Console.WriteLine("Command not valid, Create requires a name.");
-                return;
+                Console.WriteLine("Command not valid, Create requires a name and type of gradebook.");
+                return null;
             }
             var name = parts[1];
             BaseGradeBook gradeBook = new BaseGradeBook(name);
             Console.WriteLine("Created gradebook {0}.", name);
             GradeBookUserInterface.CommandLoop(gradeBook);
+
+            if (parts[2] == "standard")
+                return new StandardGradeBook(name);
+            else if (parts[2] == "ranked")
+                return new RankedGradeBook(name);
+            else
+            {
+                Console.WriteLine("Is not a supported type of gradebook, please try again");
+                return null;
+            }
         }
 
         public static void LoadCommand(string command)

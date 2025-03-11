@@ -54,5 +54,6 @@ namespace GradeBook.GradeBooks
             else
                 base.CalculateStudentStatistics(name);
         }
+
     }
 }
