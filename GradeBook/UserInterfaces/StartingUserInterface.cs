@@ -43,7 +43,7 @@ namespace GradeBook.UserInterfaces
             }
             if (parts[3] != "true" || parts[3] != "false")
             {
-                Console.WriteLine("Command not valid, the weighted flag must be 'true' or 'false'.");
+                Console.WriteLine("Command not valid, Create requires a name, type of gradebook, if it's weighted (true / false).");
                 return;
             }
             var name = parts[1];
